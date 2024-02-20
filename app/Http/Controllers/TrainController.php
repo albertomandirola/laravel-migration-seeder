@@ -8,7 +8,10 @@ use App\Models\Train;
 class TrainController extends Controller
 {
     public function index(){
-        $trains = Train::all();
-        return view('home', compact('trains'));
+        $data = strtotime("now");
+        $data = date('Y/m/d', $data);
+        $filtered_trains = Train::where('departure_date', '=', $data)->get();
+        
+        return view('home', compact('filtered_trains'));
     }
 }
